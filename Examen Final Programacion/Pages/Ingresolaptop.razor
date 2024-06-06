@@ -1,0 +1,43 @@
+﻿@page "/ingreso-laptop"
+
+@using InventarioDispositivos
+@inject NavigationManager Navigation
+
+<h3>Ingreso de Laptop</h3>
+
+<EditForm Model="laptop" OnValidSubmit="GuardarLaptop">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>Número de Serie:</label>
+        <InputText @bind-Value="laptop.NumeroDeSerie" />
+    </div>
+    <div>
+        <label>Marca:</label>
+        <InputText @bind-Value="laptop.Marca" />
+    </div>
+    <div>
+        <label>Modelo:</label>
+        <InputText @bind-Value="laptop.Modelo" />
+    </div>
+    <div>
+        <label>Memoria RAM (GB):</label>
+        <InputNumber @bind-Value="laptop.MemoriaRAM" />
+    </div>
+    <div>
+        <label>Almacenamiento (GB):</label>
+        <InputNumber @bind-Value="laptop.Almacenamiento" />
+    </div>
+    <button type="submit">Guardar</button>
+</EditForm>
+
+@code {
+    private Laptop laptop = new Laptop();
+
+    private async Task GuardarLaptop()
+    {
+        await LaptopService.GuardarLaptop(laptop);
+        Navigation.NavigateTo("/listado-dispositivos");
+    }
+}
